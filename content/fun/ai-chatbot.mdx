@@ -1,0 +1,47 @@
+---
+title: "AI Chatbot Experiment"
+description: "Playing around with LLMs and building conversational interfaces."
+tags: ["AI", "LLM", "Experiment"]
+date: "2024-01-01"
+---
+
+## The Experiment
+
+Wanted to understand LLMs beyond just using ChatGPT. Built a custom chatbot with personality.
+
+## What I Built
+
+A sarcastic coding assistant that:
+- Answers questions about my codebase
+- Has a distinct personality (helpful but sassy)
+- Remembers conversation context
+- Can search through my documentation
+
+## Tech Stack
+
+- OpenAI API (GPT-4)
+- LangChain for orchestration
+- Pinecone for vector storage
+- Next.js for the interface
+
+## Interesting Findings
+
+### Prompt Engineering is an Art
+The difference between a good and bad prompt is huge. Spent hours tweaking system prompts.
+
+### RAG is Powerful
+Retrieval-Augmented Generation makes the bot actually useful for specific domains.
+
+### Context Windows Matter
+Had to implement smart chunking to fit relevant docs in context.
+
+## Sample Interaction
+
+**Me**: How do I add a new component?
+
+**Bot**: Oh, you want to add ANOTHER component? Bold move. Anyway, check `/core/primitives/` for the pattern. Create a folder, add your tsx and types file, update the index. You know the drill. Or do you need me to hold your hand through it?
+
+## What's Next
+
+Experimenting with local models (Llama) to reduce API costs.
+

@@ -1,0 +1,3 @@
+export { Tag, default } from './Tag';
+export type { TagProps, TagVariant, TagSize } from './Tag.types';
+
