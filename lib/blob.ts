@@ -108,16 +108,11 @@ export async function deleteImage(url: string): Promise<void> {
     throw new Error('BLOB_READ_WRITE_TOKEN environment variable is not set');
   }
 
-  // Extract the blob pathname from the URL
-  const urlObj = new URL(url);
-  const pathname = urlObj.pathname;
+  const blobModule = await getBlobModule();
+  const { del } = blobModule;
 
-  // Delete using Vercel Blob API
-  await fetch(`https://blob.vercel-storage.com${pathname}`, {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}`,
-    },
+  await del(url, {
+    token: process.env.BLOB_READ_WRITE_TOKEN,
   });
 }
 
