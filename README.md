@@ -108,7 +108,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                                                           │
-│  newport/                                                 │
+│  portfolio2026/                                           │
 │  │                                                        │
 │  ├─┬─ app/                    # Next.js App Router      │
 │  │ │  ├─┬─ work/              # Work/projects pages     │
