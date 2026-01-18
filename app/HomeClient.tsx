@@ -203,8 +203,8 @@ export default function HomeClient() {
             viewport={{ once: true, margin: '-100px' }}
             className="max-w-3xl mt-20"
           >
-            <h2 className="font-mono text-xl md:text-2xl font-bold text-[var(--foreground)] mb-8 uppercase tracking-wide">
-              ON BUILDING CRAFT EXCELLENCE
+            <h2 className="font-mono text-sm font-medium text-[var(--foreground-muted)] mb-8 uppercase tracking-widest">
+              On Building Craft Excellence
             </h2>
 
             <motion.ul
