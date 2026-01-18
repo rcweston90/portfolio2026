@@ -121,3 +121,44 @@ export async function deleteImage(url: string): Promise<void> {
   });
 }
 
+/**
+ * Image metadata returned from listImages
+ */
+export interface BlobImage {
+  url: string;
+  pathname: string;
+  uploadedAt: Date;
+  size: number;
+}
+
+/**
+ * List all images from Vercel Blob Storage
+ *
+ * @returns Promise resolving to array of image metadata
+ *
+ * @example
+ * ```ts
+ * const images = await listImages();
+ * images.forEach(img => console.log(img.url, img.uploadedAt));
+ * ```
+ */
+export async function listImages(): Promise<BlobImage[]> {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+    throw new Error('BLOB_READ_WRITE_TOKEN environment variable is not set');
+  }
+
+  const blobModule = await getBlobModule();
+  const { list } = blobModule;
+
+  const result = await list({
+    token: process.env.BLOB_READ_WRITE_TOKEN,
+  });
+
+  return result.blobs.map((blob: { url: string; pathname: string; uploadedAt: Date; size: number }) => ({
+    url: blob.url,
+    pathname: blob.pathname,
+    uploadedAt: new Date(blob.uploadedAt),
+    size: blob.size,
+  }));
+}
+

@@ -258,12 +258,12 @@ export function ImageUploader({
 
       {uploadedUrl && (
         <div className="space-y-2">
-          <p className="text-sm text-[var(--foreground-muted)] font-mono">
-            Uploaded successfully!
+          <p className="text-sm text-green-600 font-mono">
+            Uploaded successfully! Image will appear on the /photos page.
           </p>
           <div className="p-3 rounded-md bg-[var(--card-bg)] border border-[var(--border)]">
             <p className="text-xs text-[var(--foreground-muted)] mb-1 font-mono">
-              URL:
+              URL (copied to clipboard):
             </p>
             <input
               type="text"

@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useAdminAuth } from '@/core/hooks/useAdminAuth';
 import { getWipPages } from '@/lib/wip-pages';
-import { ImageUploader } from './components/ImageUploader';
 
 function PasscodeForm({ onSuccess }: { onSuccess: () => void }) {
   const [passcode, setPasscode] = useState('');
@@ -144,26 +143,29 @@ export default function AdminClient() {
         {/* WIP Pages List */}
         {isAuthenticated ? (
           <div className="space-y-8">
-            {/* Image Upload Section */}
+            {/* Photo Management Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="p-6 rounded-md bg-[var(--card-bg)] border-2 border-[var(--foreground-muted)]/30"
             >
-              <h2 className="font-mono text-xl font-bold text-[var(--foreground)] uppercase tracking-wide mb-4">
-                Image Upload
-              </h2>
-              <p className="text-sm text-[var(--foreground-muted)] mb-4">
-                Upload images to Vercel Blob Storage. Copy the URL and use it in your components.
-              </p>
-              <ImageUploader
-                label="Upload Image (Max 10MB)"
-                onUploadComplete={(url) => {
-                  // URL is automatically copied to clipboard
-                  navigator.clipboard.writeText(url);
-                }}
-              />
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1">
+                  <h2 className="font-mono text-xl font-bold text-[var(--foreground)] uppercase tracking-wide mb-2">
+                    Photo Gallery
+                  </h2>
+                  <p className="text-sm text-[var(--foreground-muted)]">
+                    Upload, view, and manage photos that appear on the /photos page.
+                  </p>
+                </div>
+                <Link
+                  href="/admin/photos"
+                  className="px-4 py-2 rounded-md bg-[var(--accent-primary)] text-white hover:bg-[var(--accent-secondary)] transition-colors font-mono text-xs uppercase tracking-wider whitespace-nowrap font-semibold"
+                >
+                  Manage Photos →
+                </Link>
+              </div>
             </motion.div>
 
             {/* WIP Pages */}

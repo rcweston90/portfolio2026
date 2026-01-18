@@ -39,6 +39,9 @@ export async function uploadImageFromBrowser(
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
+    // Set timeout to 60 seconds for large uploads
+    xhr.timeout = 60000;
+
     // Track upload progress
     if (onProgress) {
       xhr.upload.addEventListener('progress', (e) => {
@@ -54,13 +57,13 @@ export async function uploadImageFromBrowser(
         try {
           const response = JSON.parse(xhr.responseText);
           resolve(response.url);
-        } catch (error) {
+        } catch {
           reject(new Error('Failed to parse response'));
         }
       } else {
         try {
-          const error = JSON.parse(xhr.responseText);
-          reject(new Error(error.error || 'Upload failed'));
+          const errorData = JSON.parse(xhr.responseText);
+          reject(new Error(errorData.error || errorData.message || 'Upload failed'));
         } catch {
           reject(new Error(`Upload failed with status ${xhr.status}`));
         }
@@ -69,6 +72,14 @@ export async function uploadImageFromBrowser(
 
     xhr.addEventListener('error', () => {
       reject(new Error('Network error during upload'));
+    });
+
+    xhr.addEventListener('timeout', () => {
+      reject(new Error('Upload timed out. Please try again.'));
+    });
+
+    xhr.addEventListener('abort', () => {
+      reject(new Error('Upload was cancelled'));
     });
 
     xhr.open('POST', '/api/upload-image');

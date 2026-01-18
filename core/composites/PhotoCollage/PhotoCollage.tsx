@@ -24,7 +24,7 @@ import { PhotoCollageProps } from './PhotoCollage.types';
 export function PhotoCollage({ photos, onPhotoClick, className = '' }: PhotoCollageProps) {
   return (
     <div className={`w-full ${className}`}>
-      <div className="w-full grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-9 gap-0">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-0">
         {photos.map((photo, index) => (
           <motion.div
             key={index}
@@ -47,7 +47,7 @@ export function PhotoCollage({ photos, onPhotoClick, className = '' }: PhotoColl
                 src={photo.src}
                 alt={photo.alt}
                 className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-125"
-                sizes="(max-width: 640px) 12.5vw, (max-width: 768px) 16.67vw, (max-width: 1024px) 12.5vw, 11.11vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 loading={index < 9 ? 'eager' : 'lazy'}
                 fill
               />
