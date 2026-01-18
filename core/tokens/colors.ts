@@ -48,33 +48,45 @@ export const colors = {
  * Raw color values (for use outside CSS context)
  */
 export const rawColors = {
+  // Palette colors
+  blue: '#0055CC',
+  teal: '#063D5B',
+  grayDark: '#404040',
+  grayMedium: '#555555',
+  blueLight: '#E9F2FF',
+  grayLight: '#F1F2F4',
+  orangeLight: '#F6B058',
+  orange: '#FA9619',
+  beige: '#FCDEB9',
+  white: '#FFFFFF',
+  
+  // Semantic colors - Light & minimal theme
   background: {
-    primary: '#faf9f7',
-    secondary: '#f1f0ee',
+    primary: '#FFFFFF',
+    secondary: '#F1F2F4',
   },
   foreground: {
-    primary: '#1e293b',
-    muted: '#64748b',
+    primary: '#404040',
+    muted: '#555555',
   },
   accent: {
-    primary: '#2563eb',
-    secondary: '#ea580c',
-    glow: 'rgba(37, 99, 235, 0.1)',
+    primary: '#0055CC',
+    secondary: '#FA9619',
+    glow: 'rgba(0, 85, 204, 0.08)',
   },
   border: {
-    default: '#cbd5e1',
-    hover: '#94a3b8',
+    default: '#F1F2F4',
+    hover: '#E9F2FF',
   },
   card: {
-    background: '#ffffff',
-    backgroundHover: '#f8fafc',
+    background: '#FFFFFF',
+    backgroundHover: '#F1F2F4',
   },
   gradient: {
-    start: '#2563eb',
-    end: '#ea580c',
+    start: '#0055CC',
+    end: '#FA9619',
   },
 } as const;
 
 export type ColorToken = typeof colors;
 export type RawColorToken = typeof rawColors;
-

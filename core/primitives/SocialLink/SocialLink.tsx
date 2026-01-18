@@ -71,7 +71,7 @@ export function SocialLink({
   showLabel = false,
   className = '',
 }: SocialLinkProps) {
-  const isExternal = href.startsWith('http') && !href.startsWith('mailto');
+  const isMailto = href.startsWith('mailto:');
   const displayIcon = icon || platformIcons[platform];
 
   return (
@@ -79,8 +79,8 @@ export function SocialLink({
       href={href}
       whileHover={{ scale: 1.1, y: -2 }}
       whileTap={{ scale: 0.95 }}
-      target={isExternal ? '_blank' : undefined}
-      rel={isExternal ? 'noopener noreferrer' : undefined}
+      target={isMailto ? undefined : '_blank'}
+      rel={isMailto ? undefined : 'noopener noreferrer'}
       aria-label={label}
       className={`
         inline-flex items-center gap-2

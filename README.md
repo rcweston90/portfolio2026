@@ -1,17 +1,64 @@
 # Portfolio Website
 
+```
+  ____            _       _   _       _   _         
+ |  _ \ ___  _ __| |_ ___| | | |_ __ (_) | |_ ___  
+ | |_) / _ \| '__| __/ _ \ | | | '_ \| | | __/ _ \ 
+ |  __/ (_) | |  | ||  __/ |_| | | | | | | || (_) |
+ |_|   \___/|_|   \__\___|\___/|_| |_|_|  \__\___/ 
+```
+
 A modern, distinctive portfolio website built with Next.js 14, featuring a dark theme with warm amber accents, smooth animations, and a unique design aesthetic.
 
 ## Features
 
-- **Modern Stack**: Next.js 14, TypeScript, Tailwind CSS
-- **Beautiful Animations**: Framer Motion powered page transitions and micro-interactions
-- **Dark Theme**: Elegant dark theme with amber/gold accent colors
-- **Responsive Design**: Fully responsive across all devices
-- **Blog Support**: MDX-powered blog with syntax highlighting
-- **SEO Optimized**: Meta tags, sitemap, robots.txt included
+```
+┌─────────────────────────────────────────────────────────┐
+│                                                           │
+│  ⚡ Modern Stack      Next.js 14, TypeScript, Tailwind   │
+│  🎬 Animations        Framer Motion transitions          │
+│  🌙 Dark Theme        Elegant amber/gold accents          │
+│  📱 Responsive        Works on all devices               │
+│  📝 Blog Support      MDX with syntax highlighting       │
+│  🔍 SEO Optimized     Meta tags, sitemap, robots.txt     │
+│                                                           │
+└─────────────────────────────────────────────────────────┘
+```
+
+- **⚡ Modern Stack**: Next.js 14, TypeScript, Tailwind CSS
+- **🎬 Beautiful Animations**: Framer Motion powered page transitions and micro-interactions
+- **🌙 Dark Theme**: Elegant dark theme with amber/gold accent colors
+- **📱 Responsive Design**: Fully responsive across all devices
+- **📝 Blog Support**: MDX-powered blog with syntax highlighting
+- **🔍 SEO Optimized**: Meta tags, sitemap, robots.txt included
 
 ## Pages
+
+```
+    ┌─────┐
+    │Home │ ──→ Hero section with featured projects
+    └─────┘
+       │
+       ├─→ ┌─────┐
+       │   │Work │ ──→ Professional project showcase
+       │   └─────┘
+       │
+       ├─→ ┌─────┐
+       │   │Fun  │ ──→ Personal projects & experiments
+       │   └─────┘
+       │
+       ├─→ ┌──────┐
+       │   │About │ ──→ Personal bio & interests
+       │   └──────┘
+       │
+       ├─→ ┌───────┐
+       │   │Resume │ ──→ Experience timeline + PDF
+       │   └───────┘
+       │
+       └─→ ┌─────┐
+           │Blog │ ──→ Articles and thoughts
+           └─────┘
+```
 
 - **Home** - Hero section with featured projects
 - **Work** - Professional project showcase with case studies
@@ -28,6 +75,15 @@ A modern, distinctive portfolio website built with Next.js 14, featuring a dark 
 - npm or yarn
 
 ### Installation
+
+```
+┌─────────────────────────────────────────────┐
+│  $ npm install                               │
+│  $ npm run dev                               │
+│  $ npm run build                             │
+│  $ npm start                                 │
+└─────────────────────────────────────────────┘
+```
 
 ```bash
 # Install dependencies
@@ -50,19 +106,29 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 ## Project Structure
 
 ```
-├── app/                  # Next.js App Router pages
-│   ├── work/            # Work/projects pages
-│   ├── fun/             # Fun projects pages
-│   ├── about/           # About page
-│   ├── resume/          # Resume page
-│   └── blog/            # Blog pages
-├── components/          # Reusable React components
-├── content/             # MDX content files
-│   ├── projects/        # Work project content
-│   ├── fun/             # Fun project content
-│   └── blog/            # Blog post content
-├── lib/                 # Utility functions
-└── public/              # Static assets
+┌─────────────────────────────────────────────────────────┐
+│                                                           │
+│  newport/                                                 │
+│  │                                                        │
+│  ├─┬─ app/                    # Next.js App Router      │
+│  │ │  ├─┬─ work/              # Work/projects pages     │
+│  │ │  ├─┬─ fun/               # Fun projects pages      │
+│  │ │  ├─┬─ about/             # About page              │
+│  │ │  ├─┬─ resume/            # Resume page            │
+│  │ │  └─┴─ blog/              # Blog pages             │
+│  │ │                                                      │
+│  ├─┬─ components/             # React components        │
+│  │ │                                                      │
+│  ├─┬─ content/                # MDX content files        │
+│  │ │  ├─┬─ projects/          # Work project content    │
+│  │ │  ├─┬─ fun/               # Fun project content     │
+│  │ │  └─┴─ blog/              # Blog post content      │
+│  │ │                                                      │
+│  ├─┬─ lib/                    # Utility functions       │
+│  │ │                                                      │
+│  └─┴─ public/                 # Static assets            │
+│                                                           │
+└─────────────────────────────────────────────────────────┘
 ```
 
 ## Customization
@@ -109,7 +175,40 @@ npm run build
 npm start
 ```
 
+## By The Numbers
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                                                           │
+│  📅  15+ Years Experience                                 │
+│  🏢  7 Companies                                          │
+│  👥  15+ Teams Led                                         │
+│  🚀  50+ Projects Shipped                                  │
+│                                                           │
+└─────────────────────────────────────────────────────────┘
+```
+
 ## Technologies
+
+```
+     ┌─────────────┐
+     │  Next.js 14 │ ◄─── React Framework
+     └──────┬──────┘
+            │
+     ┌──────▼──────┐      ┌──────────────┐
+     │ TypeScript  │      │ Tailwind CSS │
+     └──────┬──────┘      └──────┬───────┘
+            │                    │
+            └────────┬───────────┘
+                     │
+            ┌────────▼────────┐
+            │  Framer Motion  │ ◄─── Animations
+            └────────┬────────┘
+                     │
+            ┌────────▼────────┐
+            │      MDX        │ ◄─── Markdown + JSX
+            └─────────────────┘
+```
 
 - [Next.js 14](https://nextjs.org/) - React framework
 - [TypeScript](https://www.typescriptlang.org/) - Type safety

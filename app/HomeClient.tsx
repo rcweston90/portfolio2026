@@ -1,22 +1,27 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import Link from 'next/link';
+import { useState, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { AnimatedText } from '@/core/primitives';
-import { ProjectCard } from '@/core/composites';
+import { HEADSHOT_IMAGE, HEADSHOT_ALT_IMAGE } from '@/lib/images';
 
-interface Project {
-  title: string;
-  description: string;
-  tags: string[];
-  slug: string;
-  image?: string;
-  featured?: boolean;
-}
+const principles = [
+  'The work always matters, but how people get work done matters more.',
+  'Simplification is both the bedrock of innovation and its limiting factor.',
+  'Launching and learning is the end-goal; don\'t get caught in an iterative loop.',
+  'Momentum compounds in all directions.',
+  'Data is your best defense when selling in abstract ideas; use it to influence minds.',
+  'Give back as you climb; sharing experiences opens doors both ways.',
+  'Excellence in craft demands holistic balance.',
+  'A bad strategy is worse than no strategy; be purposeful in your intentions.',
+];
 
-interface HomeClientProps {
-  featuredProjects: Project[];
-}
+const ANIMATION_DURATION = 1000; // ms
+const ANIMATION_DELAYS = {
+  avatar: 0.3,
+  bio: 0.5,
+};
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -30,222 +35,200 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, x: -20 },
   visible: {
     opacity: 1,
-    y: 0,
+    x: 0,
     transition: {
       duration: 0.5,
-      ease: [0.4, 0, 0.2, 1] as const,
     },
   },
 };
 
-export default function HomeClient({ featuredProjects }: HomeClientProps) {
+export default function HomeClient() {
+  const [isFlipping, setIsFlipping] = useState(false);
+  const [currentImage, setCurrentImage] = useState(HEADSHOT_IMAGE);
+  const [showHoverButton, setShowHoverButton] = useState(false);
+
+  const handleFlip = useCallback(() => {
+    if (isFlipping) return;
+    
+    setIsFlipping(true);
+    
+    setTimeout(() => {
+      setCurrentImage((prev) => prev === HEADSHOT_IMAGE ? HEADSHOT_ALT_IMAGE : HEADSHOT_IMAGE);
+      setIsFlipping(false);
+    }, ANIMATION_DURATION);
+  }, [isFlipping]);
+
+  const handleMouseEnter = useCallback(() => setShowHoverButton(true), []);
+  const handleMouseLeave = useCallback(() => setShowHoverButton(false), []);
+
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative px-6 py-20 md:py-32 lg:py-40">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="max-w-4xl"
-          >
-            {/* Greeting */}
-            <motion.p
-              variants={itemVariants}
-              className="text-[var(--accent-primary)] font-mono text-sm uppercase tracking-wider mb-4"
-            >
-              GREETING
-            </motion.p>
-
-            {/* Main Heading */}
+    <div className="min-h-screen pt-8 pb-20">
+      {/* Main Intro - Full Width */}
+      <section className="mb-20 pb-4 border-b border-[var(--border)] px-6">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-4">
+          <div className="flex-1 min-w-0">
             <AnimatedText
-              text="Hello there, I'm Charlie Weston"
+              text="Hello there, I'm Charlie Weston."
               as="h1"
-              className="font-mono text-3xl md:text-5xl lg:text-6xl font-bold text-[var(--foreground)] leading-tight uppercase tracking-tight"
-              delay={0.2}
+              className="font-mono text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-[var(--foreground)] leading-tight uppercase tracking-tight"
             />
-
-            {/* Subheading */}
-            <motion.p
-              variants={itemVariants}
-              className="mt-6 text-lg md:text-xl text-[var(--foreground-muted)] max-w-2xl leading-relaxed"
-            >
-              I am a design leader with experience building{' '}
-              <span className="text-[var(--accent-primary)] font-medium">[teams, products, experiments]</span> and{' '}
-              <span className="text-[var(--accent-secondary)] font-medium">[AI experiences]</span> across 
-              startups and enterprise, focusing on B2B experiences that help people work smarter and faster.
-            </motion.p>
-
-            {/* CTA Buttons */}
-            <motion.div
-              variants={itemVariants}
-              className="mt-10 flex flex-wrap gap-4"
-            >
-              <Link href="/work" className="btn-primary inline-flex items-center gap-2">
-                VIEW_WORK
-              </Link>
-              <Link
-                href="/about"
-                className="px-6 py-3 rounded-sm border border-[var(--border)] text-[var(--foreground)] font-medium hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)] transition-colors uppercase tracking-wider text-sm"
-              >
-                ABOUT_ME
-              </Link>
-            </motion.div>
-          </motion.div>
-
-        </div>
-      </section>
-
-      {/* Featured Projects Section */}
-      <section className="px-6 py-20">
-        <div className="max-w-6xl mx-auto">
+          </div>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="flex items-end justify-between mb-12 pb-4 border-b border-[var(--border)]"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: ANIMATION_DELAYS.avatar, duration: 0.5 }}
+            className="flex-shrink-0 relative"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
-            <div>
-              <h2 className="font-mono text-2xl md:text-3xl font-bold text-[var(--foreground)] uppercase tracking-wide">
-                FEATURED_WORK
-              </h2>
-              <p className="mt-2 text-sm text-[var(--foreground-muted)] uppercase tracking-wider">
-                Selected projects I&apos;m proud of
-              </p>
+            <div className="relative w-[120px] h-[120px]" style={{ perspective: '1000px' }}>
+              <div className="w-full h-full rounded-full overflow-hidden bg-[var(--card-bg)] border border-[var(--border)] p-1 shadow-sm">
+                <div className="w-full h-full rounded-full overflow-hidden bg-[var(--background-secondary)] relative" style={{ transformStyle: 'preserve-3d' }}>
+                  {/* Coin flip container */}
+                  <motion.div
+                    className="w-full h-full"
+                    animate={{
+                      rotateY: isFlipping ? 1800 : 0, // Multiple rotations for coin effect
+                      rotateX: isFlipping ? [0, 90, 180, 270, 360] : 0,
+                      scale: isFlipping ? [1, 0.7, 0.5, 0.7, 1] : 1,
+                    }}
+                    transition={{
+                      duration: ANIMATION_DURATION / 1000,
+                      ease: [0.4, 0, 0.2, 1],
+                    }}
+                    style={{
+                      transformStyle: "preserve-3d",
+                    }}
+                  >
+                    <Image
+                      src={currentImage}
+                      alt="Charlie Weston"
+                      width={120}
+                      height={120}
+                      className="w-full h-full object-cover rounded-full"
+                      priority
+                    />
+                  </motion.div>
+                </div>
+              </div>
+              
+              {/* Hover button - appears from underneath, positioned relative to outer container */}
+              <AnimatePresence>
+                {showHoverButton && !isFlipping && (
+                  <motion.button
+                    initial={{ 
+                      opacity: 0,
+                      y: 10,
+                      scale: 0.8
+                    }}
+                    animate={{ 
+                      opacity: 1,
+                      y: 0,
+                      scale: 1
+                    }}
+                    exit={{ 
+                      opacity: 0,
+                      y: 10,
+                      scale: 0.8
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 20
+                    }}
+                    onClick={handleFlip}
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-8 h-8 rounded-full bg-white border-2 border-[var(--accent-secondary)] flex items-center justify-center hover:bg-[var(--accent-secondary)] transition-colors duration-200 shadow-sm group z-20"
+                    aria-label="Flip avatar"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-[var(--accent-secondary)] group-hover:text-white transition-colors"
+                    >
+                      <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                      <path d="M17 8h4v4" />
+                      <path d="M12 12l-4-4 4-4" />
+                    </svg>
+                  </motion.button>
+                )}
+              </AnimatePresence>
             </div>
-            <Link
-              href="/work"
-              className="hidden md:flex items-center gap-2 text-[var(--accent-primary)] font-mono text-xs uppercase tracking-wider hover:text-[var(--accent-secondary)] transition-colors"
-            >
-              VIEW_ALL →
-            </Link>
-          </motion.div>
-
-          {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {featuredProjects.map((project) => (
-              <ProjectCard
-                key={project.slug}
-                title={project.title}
-                description={project.description}
-                tags={project.tags}
-                href={`/work/${project.slug}`}
-                image={project.image}
-                featured={project.featured}
-              />
-            ))}
-          </div>
-
-          {/* Mobile View All Link */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="mt-8 text-center md:hidden"
-          >
-            <Link
-              href="/work"
-              className="inline-flex items-center gap-2 text-[var(--accent-primary)] font-mono text-xs uppercase tracking-wider"
-            >
-              VIEW_ALL →
-            </Link>
           </motion.div>
         </div>
-      </section>
 
-      {/* Skills/Expertise Section */}
-      <section className="px-6 py-20 border-t border-[var(--border)]">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16 pb-4 border-b border-[var(--border)]"
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: ANIMATION_DELAYS.bio, duration: 0.6 }}
+            className="max-w-3xl space-y-4 text-base text-[var(--foreground-muted)] leading-relaxed"
           >
-            <h2 className="font-mono text-2xl md:text-3xl font-bold text-[var(--foreground)] uppercase tracking-wide">
-              FOCUS AREAS
-            </h2>
-            <p className="mt-2 text-sm text-[var(--foreground-muted)] uppercase tracking-wider">
-              Research • Strategy • Design • Operations
+            <p>
+              I am a design leader with experience building teams, products, experiments, and{' '}
+              <span className="text-[var(--accent-primary)] font-medium">[AI experiences]</span> across 
+              startups and enterprise, focusing on{' '}
+              <span className="text-[var(--accent-secondary)] font-medium">[B2B experiences]</span> that 
+              help people work smarter and faster.
+            </p>
+            <p>
+              With over 15 years in product, strategy & design, and 10+ years leading & coaching teams, 
+              I&apos;ve pushed over a million pixels and learned that the work always matters, but how 
+              people get work done matters more.
+            </p>
+            <p>
+              <span className="text-[var(--foreground)]">Open to contract and freelance opportunities.</span>{' '}
+              If you&apos;re working on something cool, let&apos;s chat!
             </p>
           </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Research & Analysis',
-                description:
-                  'Conducting thorough investigations to inform design decisions and validate product hypotheses.',
-                icon: '🔍',
-              },
-              {
-                title: 'Design & Product Strategy',
-                description:
-                  'Crafting strategic plans that align with business objectives while prioritizing user needs.',
-                icon: '🎯',
-              },
-              {
-                title: 'Systems & Operations',
-                description:
-                  'Creating cohesive systems and implementing agile methodologies to streamline workflows.',
-                icon: '⚙️',
-              },
-            ].map((skill, index) => (
-              <motion.div
-                key={skill.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="p-6 rounded-sm bg-[var(--card-bg)] border border-[var(--border)] hover:border-[var(--accent-primary)] transition-colors"
-              >
-                <span className="text-3xl">{skill.icon}</span>
-                <h3 className="mt-4 font-mono text-lg font-semibold text-[var(--foreground)] uppercase tracking-wide">
-                  {skill.title}
-                </h3>
-                <p className="mt-2 text-[var(--foreground-muted)] text-sm leading-relaxed">
-                  {skill.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="px-6 py-20">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+      <div className="px-6">
+        <div className="max-w-6xl mx-auto">
+          {/* Philosophy Section */}
+          <motion.section
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '-100px' }}
+            className="max-w-3xl mt-20"
           >
-            <h2 className="font-mono text-2xl md:text-3xl font-bold text-[var(--foreground)] uppercase tracking-wide">
-              LET&apos;S CREATE SOMETHING TOGETHER
+            <h2 className="font-mono text-xl md:text-2xl font-bold text-[var(--foreground)] mb-8 uppercase tracking-wide">
+              ON BUILDING CRAFT EXCELLENCE
             </h2>
-            <p className="mt-4 text-[var(--foreground-muted)] text-base">
-              Open to freelance opportunities and interesting collaborations.
-            </p>
-            <motion.a
-              href="mailto:charlie.rcweston@gmail.com"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="mt-8 btn-primary inline-block"
+
+            <motion.ul
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-100px' }}
+              className="space-y-4"
             >
-              GET_IN_TOUCH
-            </motion.a>
-          </motion.div>
+              {principles.map((principle, index) => (
+                <motion.li
+                  key={index}
+                  variants={itemVariants}
+                  className="flex items-start gap-3 text-base text-[var(--foreground-muted)]"
+                >
+                  <span className="text-[var(--accent-primary)] mt-1 font-mono">→</span>
+                  {principle}
+                </motion.li>
+              ))}
+            </motion.ul>
+          </motion.section>
         </div>
-      </section>
+      </div>
     </div>
   );
 }
-

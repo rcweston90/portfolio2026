@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ProjectCard } from '@/core/composites';
 import { AnimatedText } from '@/core/primitives';
+import { VaultedWorkSection } from './components/VaultedWorkSection';
 
 interface Project {
   title: string;
@@ -15,6 +16,7 @@ interface Project {
 
 interface WorkClientProps {
   projects: Project[];
+  vaultedProjects?: Project[];
 }
 
 const containerVariants = {
@@ -27,7 +29,18 @@ const containerVariants = {
   },
 };
 
-export default function WorkClient({ projects }: WorkClientProps) {
+const itemVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
+
+export default function WorkClient({ projects, vaultedProjects = [] }: WorkClientProps) {
   return (
     <div className="min-h-screen px-6 py-20">
       <div className="max-w-6xl mx-auto">
@@ -49,72 +62,89 @@ export default function WorkClient({ projects }: WorkClientProps) {
           </motion.p>
         </div>
 
-        {/* Filter Tags (optional visual element) */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          className="mb-10 flex flex-wrap gap-2"
-        >
-          {['All', 'Design', 'Development', 'Mobile', 'Branding'].map((filter, index) => (
-            <button
-              key={filter}
-              className={`px-4 py-2 rounded-sm text-xs font-medium transition-colors uppercase tracking-wider ${
-                index === 0
-                  ? 'bg-[var(--accent-primary)] text-white border border-[var(--accent-primary)]'
-                  : 'bg-[var(--card-bg)] text-[var(--foreground-muted)] hover:text-[var(--foreground)] border border-[var(--border)]'
-              }`}
-            >
-              [{filter}]
-            </button>
-          ))}
-        </motion.div>
-
-        {/* Projects Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        >
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.slug}
-              title={project.title}
-              description={project.description}
-              tags={project.tags}
-              href={`/work/${project.slug}`}
-              image={project.image}
-              featured={project.featured}
-            />
-          ))}
-        </motion.div>
-
-        {/* Contact CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        {/* Featured In Section */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mt-20 text-center p-8 rounded-sm bg-[var(--card-bg)] border border-[var(--border)]"
+          viewport={{ once: true, margin: '-100px' }}
+          className="max-w-3xl mt-20 pt-20 border-t border-[var(--border)]"
         >
-          <h2 className="font-mono text-xl md:text-2xl font-bold text-[var(--foreground)] uppercase tracking-wide">
-            HAVE A PROJECT IN MIND?
+          <h2 className="font-mono text-xl md:text-2xl font-bold text-[var(--foreground)] mb-8 uppercase tracking-wide">
+            FEATURED IN
           </h2>
-          <p className="mt-3 text-sm text-[var(--foreground-muted)]">
-            I&apos;d love to hear about it. Let&apos;s discuss how we can work together.
-          </p>
-            <motion.a
-            href="mailto:charlie.rcweston@gmail.com"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="mt-6 btn-primary inline-block"
+          <motion.ul
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+            className="space-y-6"
           >
-            GET_IN_TOUCH
-          </motion.a>
-        </motion.div>
+            {[
+              {
+                publication: 'Institute of Product Leadership',
+                title: 'Why UX Research is Critical to Your Product Launch Strategy',
+                category: 'Article',
+                year: '2023',
+                url: '#',
+              },
+              {
+                publication: 'Cloudflare',
+                title: 'Style Guide',
+                category: 'Design System',
+                year: '2022',
+                url: '#',
+              },
+              {
+                publication: 'ADP List',
+                title: 'Designing Design Ops',
+                category: 'Article',
+                year: '2021',
+                url: '#',
+              },
+              {
+                publication: 'Not Just Pixels',
+                title: 'Strategy, Designing for B2B, and Scrum Methodology with Charlie Weston',
+                category: 'Podcast',
+                year: '2020',
+                url: '#',
+              },
+            ].map((feature, index) => (
+              <motion.li
+                key={index}
+                variants={itemVariants}
+                className="flex flex-col gap-2"
+              >
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="inline-block px-2.5 py-1 rounded-sm bg-[var(--accent-primary)] text-white font-mono text-xs font-bold uppercase tracking-wider">
+                    {feature.publication}
+                  </span>
+                  <span className="inline-block px-2 py-0.5 rounded-sm bg-[var(--background-secondary)] text-[var(--foreground-muted)] font-mono text-xs uppercase tracking-wider border border-[var(--border)]">
+                    {feature.category}
+                  </span>
+                  <span className="inline-block px-2 py-0.5 rounded-sm bg-[var(--background-secondary)] text-[var(--foreground-muted)] font-mono text-xs uppercase tracking-wider border border-[var(--border)]">
+                    {feature.year}
+                  </span>
+                </div>
+                <a
+                  href={feature.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-base text-[var(--foreground-muted)] leading-relaxed pl-0.5 hover:text-[var(--accent-primary)] transition-colors duration-200 group"
+                >
+                  {feature.title}
+                  <span className="inline-block ml-1 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                </a>
+              </motion.li>
+            ))}
+          </motion.ul>
+        </motion.section>
+
+        {/* Vaulted Work Section */}
+        <VaultedWorkSection projects={vaultedProjects} />
       </div>
     </div>
   );
 }
-

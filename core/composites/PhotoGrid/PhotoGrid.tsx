@@ -43,6 +43,11 @@ export function PhotoGrid({ photos, maxPhotos = 6, className = '' }: PhotoGridPr
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 40, rotate: 0 }}
+              animate={{ 
+                opacity: 1, 
+                y: 0, 
+                rotate: pos.rotate,
+              }}
               whileInView={{ 
                 opacity: 1, 
                 y: 0, 
@@ -53,7 +58,7 @@ export function PhotoGrid({ photos, maxPhotos = 6, className = '' }: PhotoGridPr
                 delay: index * 0.1,
                 ease: [0.4, 0, 0.2, 1]
               }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: '-100px' }}
               whileHover={{ 
                 rotate: 0, 
                 scale: 1.05,

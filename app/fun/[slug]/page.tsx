@@ -251,9 +251,10 @@ export default function FunProjectDetailPage() {
       <section className="px-6 py-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: '-100px' }}
           className="max-w-3xl mx-auto"
         >
           {project.content.split('\n').map((line, index) => {

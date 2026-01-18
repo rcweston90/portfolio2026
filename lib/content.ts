@@ -12,6 +12,7 @@ export interface ProjectMeta {
   tags: string[];
   image?: string;
   featured?: boolean;
+  vaulted?: boolean;
   date: string;
   role?: string;
   duration?: string;
@@ -104,5 +105,9 @@ export function getBlogPostBySlug(slug: string): ContentData<BlogMeta> | null {
 
 export function getFeaturedProjects(): ContentData<ProjectMeta>[] {
   return getProjects().filter((p) => p.meta.featured);
+}
+
+export function getVaultedProjects(): ContentData<ProjectMeta>[] {
+  return getProjects().filter((p) => p.meta.vaulted);
 }
 

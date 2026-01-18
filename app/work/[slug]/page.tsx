@@ -254,9 +254,10 @@ export default function ProjectDetailPage() {
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '-100px' }}
             className="aspect-video rounded-2xl bg-gradient-to-br from-[var(--accent-primary)]/20 to-[var(--accent-secondary)]/20 flex items-center justify-center"
           >
             <span className="text-6xl opacity-50">🖼️</span>
@@ -268,9 +269,10 @@ export default function ProjectDetailPage() {
       <section className="px-6 py-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: '-100px' }}
           className="max-w-3xl mx-auto prose prose-invert prose-lg"
         >
           {/* Render markdown content */}

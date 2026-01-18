@@ -19,3 +19,15 @@ export {
   useScrolledPast,
 } from './useScrollProgress';
 
+export {
+  useVaultAuth,
+} from './useVaultAuth';
+
+export {
+  useAdminAuth,
+} from './useAdminAuth';
+
+export {
+  useScrollSpy,
+} from './useScrollSpy';
+

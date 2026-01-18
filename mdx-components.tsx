@@ -3,42 +3,44 @@ import type { MDXComponents } from 'mdx/types';
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children }) => (
-      <h1 className="font-serif text-4xl font-bold text-[var(--foreground)] mt-8 mb-4">
+      <h1 className="text-xl font-normal text-[var(--foreground)] mt-12 mb-6 first:mt-0">
         {children}
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 className="font-serif text-2xl font-bold text-[var(--foreground)] mt-8 mb-4">
+      <h2 className="text-lg font-normal text-[var(--foreground)] mt-10 mb-4 first:mt-0">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="font-serif text-xl font-semibold text-[var(--foreground)] mt-6 mb-3">
+      <h3 className="text-base font-normal text-[var(--foreground)] mt-8 mb-3 first:mt-0">
         {children}
       </h3>
     ),
     p: ({ children }) => (
-      <p className="text-[var(--foreground-muted)] leading-relaxed my-4">
+      <p className="text-[var(--foreground-muted)] leading-relaxed my-6">
         {children}
       </p>
     ),
     ul: ({ children }) => (
-      <ul className="list-disc list-inside text-[var(--foreground-muted)] my-4 space-y-2">
+      <ul className="list-none text-[var(--foreground-muted)] my-6 space-y-2">
         {children}
       </ul>
     ),
     ol: ({ children }) => (
-      <ol className="list-decimal list-inside text-[var(--foreground-muted)] my-4 space-y-2">
+      <ol className="list-none text-[var(--foreground-muted)] my-6 space-y-2">
         {children}
       </ol>
     ),
     li: ({ children }) => (
-      <li className="text-[var(--foreground-muted)]">{children}</li>
+      <li className="text-[var(--foreground-muted)] before:content-['•'] before:mr-2">
+        {children}
+      </li>
     ),
     a: ({ href, children }) => (
       <a
         href={href}
-        className="text-[var(--accent-primary)] hover:underline"
+        className="text-[var(--foreground)] underline hover:text-[var(--foreground-muted)]"
         target={href?.startsWith('http') ? '_blank' : undefined}
         rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
       >
@@ -46,17 +48,17 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </a>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-[var(--accent-primary)] pl-4 my-4 italic text-[var(--foreground-muted)]">
+      <blockquote className="border-l border-[var(--foreground-muted)] pl-4 my-6 text-[var(--foreground-muted)] italic">
         {children}
       </blockquote>
     ),
     code: ({ children }) => (
-      <code className="bg-[var(--card-bg)] px-2 py-1 rounded text-sm font-mono text-[var(--accent-primary)]">
+      <code className="text-[var(--foreground)] font-mono text-sm">
         {children}
       </code>
     ),
     pre: ({ children }) => (
-      <pre className="bg-[var(--card-bg)] p-4 rounded-lg overflow-x-auto my-4">
+      <pre className="my-6 overflow-x-auto">
         {children}
       </pre>
     ),

@@ -4,6 +4,47 @@ import { Navigation } from "@/core/layout";
 import { Footer } from "@/core/layout";
 import { ScrollProgress } from "@/core/effects";
 
+// Hidden ASCII art for curious inspectors
+function DevToolsArt({ art }: { art: string }) {
+  return (
+    <template
+      id="hello-inspector"
+      data-message={art}
+      dangerouslySetInnerHTML={{ __html: `<!--${art}-->` }}
+    />
+  );
+}
+
+const asciiArt = `
+
+   ╦ ╦╔═╗╦  ╦  ╔═╗  ╔╦╗╦ ╦╔═╗╦═╗╔═╗
+   ╠═╣║╣ ║  ║  ║ ║   ║ ╠═╣║╣ ╠╦╝║╣ 
+   ╩ ╩╚═╝╩═╝╩═╝╚═╝   ╩ ╩ ╩╚═╝╩╚═╚═╝
+
+              .-.
+             (o o)
+            /| K |\\
+           / |   | \\
+              | |
+             /   \\
+            /     \\
+           /_______\\
+          |         |
+          |  KENOBI |
+          |_________|
+             || ||
+             || ||
+            _|| ||_
+           |__| |__|
+
+   ┌───────────────────────────────────┐
+   │  General Kenobi!                  │
+   │                                   │
+   │  You are a bold one.              │
+   └───────────────────────────────────┘
+
+`;
+
 export const metadata: Metadata = {
   title: {
     default: "Charlie Weston | Design Leader",
@@ -37,10 +78,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <DevToolsArt art={asciiArt} />
       <body className="gradient-bg min-h-screen">
         <ScrollProgress />
         <Navigation />
-        <main className="pt-20">
+        <main className="pt-20 w-full overflow-x-hidden">
           {children}
         </main>
         <Footer />

@@ -11,4 +11,5 @@ export * from './Text';
 export * from './Tag';
 export * from './SocialLink';
 export * from './SectionHeader';
+export * from './AsciiArt';
 

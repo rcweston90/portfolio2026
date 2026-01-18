@@ -2,30 +2,40 @@
 @import "tailwindcss";
 
 :root {
-  /* Light theme with terminal aesthetic */
-  --background: #faf9f7;
-  --background-secondary: #f1f0ee;
-  --foreground: #1e293b;
-  --foreground-muted: #64748b;
+  /* Light & minimal theme */
+  --background: #FFFFFF;
+  --background-secondary: #F1F2F4;
+  --foreground: #404040;
+  --foreground-muted: #555555;
   
-  /* Accent colors - blue and orange */
-  --accent-primary: #2563eb;
-  --accent-secondary: #ea580c;
-  --accent-glow: rgba(37, 99, 235, 0.1);
+  /* Accent colors - subtle blue and orange */
+  --accent-primary: #0055CC;
+  --accent-secondary: #FA9619;
+  --accent-glow: rgba(0, 85, 204, 0.06);
   
   /* Additional colors */
-  --border: #cbd5e1;
-  --border-hover: #94a3b8;
-  --card-bg: #ffffff;
-  --card-bg-hover: #f8fafc;
+  --border: #E8E8E8;
+  --border-hover: #D8D8D8;
+  --card-bg: #FFFFFF;
+  --card-bg-hover: #FAFAFA;
   
   /* Gradient colors */
-  --gradient-start: #2563eb;
-  --gradient-end: #ea580c;
+  --gradient-start: #0055CC;
+  --gradient-end: #FA9619;
   
   /* Typography */
   --font-mono: 'JetBrains Mono', 'Courier New', monospace;
   --font-sans: 'Inter', system-ui, sans-serif;
+  
+  /* Grid pattern */
+  --grid-color: rgba(64, 64, 64, 0.03);
+  --grid-size: 24px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 @theme inline {
@@ -38,22 +48,26 @@
   box-sizing: border-box;
 }
 
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
-  line-height: 1.6;
+  line-height: 1.7;
   min-height: 100vh;
-  /* Subtle grid pattern for terminal aesthetic */
-  background-image: 
-    linear-gradient(to right, var(--border) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
-  background-size: 20px 20px;
-  background-position: 0 0, 0 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Selection styling */
@@ -62,36 +76,51 @@ body {
   color: #ffffff;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - hidden */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 0px;
+  display: none;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--background-secondary);
+/* Firefox */
+* {
+  scrollbar-width: none;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 0;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-primary);
-}
-
-/* Terminal background */
-.gradient-bg {
-  background: var(--background);
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none;
 }
 
 /* Monospace headings */
 .font-mono {
   font-family: var(--font-mono);
+  letter-spacing: -0.01em;
 }
 
 .font-serif {
   font-family: var(--font-mono);
+}
+
+/* Typography refinements */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+h1 {
+  letter-spacing: -0.03em;
+}
+
+p {
+  margin-bottom: 1.25em;
+  line-height: 1.75;
+}
+
+p:last-child {
+  margin-bottom: 0;
 }
 
 /* Accent text gradient */
@@ -104,17 +133,22 @@ body {
 
 /* Card hover effect */
 .card-hover {
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-sm);
+  border-radius: 4px;
 }
 
 .card-hover:hover {
   border-color: var(--accent-primary);
   background: var(--card-bg-hover);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
 }
 
 /* Link underline animation */
 .link-underline {
   position: relative;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .link-underline::after {
@@ -125,7 +159,7 @@ body {
   width: 0;
   height: 1px;
   background: var(--accent-primary);
-  transition: width 0.3s ease;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .link-underline:hover::after {
@@ -135,11 +169,27 @@ body {
 /* Smooth image loading */
 img {
   opacity: 1;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 img[data-loading="true"] {
   opacity: 0;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* Focus styles for accessibility */
@@ -154,23 +204,99 @@ img[data-loading="true"] {
   color: #ffffff;
   font-weight: 500;
   padding: 0.75rem 1.5rem;
-  border-radius: 2px;
+  border-radius: 4px;
   border: 1px solid var(--accent-primary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   font-size: 0.875rem;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover {
   background: var(--accent-secondary);
   border-color: var(--accent-secondary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Glass effect */
 .glass {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Terminal background */
+.gradient-bg {
+  background: var(--background);
+  background-image: 
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  background-position: 0 0, 0 0;
+}
+
+/* Animated Grid Styles */
+@keyframes pulseGrid {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0 0, 0 0, 0% 0%;
+  }
+  50% {
+    background-position: 0 0, 0 0, 100% 100%;
+  }
+  100% {
+    background-position: 0 0, 0 0, 0% 0%;
+  }
+}
+
+@keyframes edgeFlow {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: var(--grid-size) var(--grid-size), calc(var(--grid-size) * -1) calc(var(--grid-size) * -1);
+  }
+}
+
+.animated-grid {
+  will-change: opacity, transform, background-position;
+}
+
+/* Bento Grid Utilities */
+@media (min-width: 768px) {
+  .bento-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: minmax(200px, auto);
+  }
+  
+  .bento-grid > * {
+    min-height: 200px;
+  }
+}
+
+/* 3D Transform Utilities */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.perspective {
+  perspective: 1000px;
 }

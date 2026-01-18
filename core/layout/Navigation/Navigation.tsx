@@ -2,15 +2,17 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { NavigationProps, NavItem } from './Navigation.types';
+import { LOGO_IMAGE } from '@/lib/images';
 
 const defaultNavItems: NavItem[] = [
+  { name: 'Readme', href: '/' },
   { name: 'Work', href: '/work' },
-  { name: 'Fun', href: '/fun' },
-  { name: 'About', href: '/about' },
-  { name: 'Resume', href: '/resume' },
+  { name: 'Playground', href: '/playground' },
+  { name: 'Photos', href: '/photos' },
   { name: 'Blog', href: '/blog' },
 ];
 
@@ -67,7 +69,7 @@ export function Navigation({
         className={`
           fixed top-0 left-0 right-0 z-50 
           transition-all duration-300
-          ${isScrolled ? 'glass py-3' : 'py-5 bg-transparent'}
+          glass py-3
           ${className}
         `}
       >
@@ -75,8 +77,16 @@ export function Navigation({
           {/* Logo */}
           <Link 
             href={logoHref}
-            className="font-mono text-xl font-semibold text-[var(--foreground)] hover:text-[var(--accent-primary)] transition-colors uppercase tracking-wider"
+            className="flex items-center gap-3 font-mono text-xl font-semibold text-[var(--foreground)] hover:text-[var(--accent-primary)] transition-colors uppercase tracking-wider"
           >
+            <Image
+              src={LOGO_IMAGE}
+              alt="Logo"
+              width={32}
+              height={32}
+              className="flex-shrink-0"
+              priority
+            />
             [{logo}]
           </Link>
 
@@ -194,4 +204,3 @@ export function Navigation({
 }
 
 export default Navigation;
-

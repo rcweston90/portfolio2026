@@ -1,0 +1,79 @@
+.toc {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background-color: #0a0a0a;
+  color: #888;
+  padding: 24px;
+  width: 300px;
+  user-select: none;
+}
+
+.toc-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  padding-left: 2px;
+}
+
+.toc-icon {
+  width: 18px;
+  height: 18px;
+  color: #888;
+}
+
+.toc-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #e0e0e0;
+}
+
+.toc-content {
+  position: relative;
+}
+
+/* SVG tracking line */
+.toc-track-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  transition: opacity 0.2s ease;
+}
+
+/* TOC items container */
+.toc-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.toc-row {
+  position: relative;
+}
+
+/* Link buttons */
+.toc-link {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 15px;
+  padding: 12px 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.2s ease;
+  font-family: inherit;
+  line-height: 1.3;
+  display: block;
+  width: 100%;
+}
+
+.toc-link:hover {
+  color: #aaa;
+}
+
+.toc-link.active {
+  color: #fff;
+  font-weight: 500;
+}
